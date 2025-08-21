@@ -63,7 +63,7 @@ javascript;
 let count = 5;
 count = count << 1;
 console.log(`Doubled: ${count}`);
-//eft shift operator (<<) moves bits left
+//left shift operator (<<) moves bits left
 //Each left shift multiplies by 2 (binary)
 //5 in binary: 101
 //Shift left: 1010 (which is 10 in decimal)

@@ -1,6 +1,4 @@
 //1. Switch Case Output
-let day = "Monday";
-
 switch (day) {
   case "monday": // Case is lowercase while input is "Monday" (case-sensitive)
     console.log("It's the start of the week.");
