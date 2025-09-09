@@ -243,9 +243,7 @@ for (const [index, emp] of employees.entries()) {
 }
 
 // 49 Given the array-like object below, access the second element and log it:
-
 const arrayLike = { 0: "First", 1: "Second", length: 2 };
-console.log(arrayLike[1]);
 
 // 50 : Write a function that takes a variable number of arguments and converts the arguments object into a real array using Array.from.
 function convertArgsToArray() {
@@ -270,18 +268,63 @@ const charArray = Array.from("Hello");
 
 // 55 For the array, ['apple', 'banana', 'apricot', 'mango', 'blueberry'], group words by their first letter using group().
 const fruits = ["apple", "banana", "apricot", "mango", "blueberry"];
-const groupedByFirstLetter = fruits.group((fruit) => fruit[0]);
-console.log(groupedByFirstLetter);
+// const grouped = fruits.group(word => word[0]);
 
 // 57 From this array [3, 7, 3, 2, 3, 8, 7, 7], find the most repeated number. Hint: Use array method.
+const numbers = [3, 7, 3, 2, 3, 8, 7, 7];
+const mostRepeated = numbers.reduce((acc, num) => {
+  acc[num] = (acc[num] || 0) + 1;
+  return acc;
+}, {});
+const mostRepeatedNumber = Object.keys(mostRepeated).reduce((a, b) =>
+  mostRepeated[a] > mostRepeated[b] ? a : b
+);
 
 // 58 Find the median of [5, 2, 9, 1, 3, 6, 8].
+const nums = [5, 2, 9, 1, 3, 6, 8, 4, 4];
+const median = nums.sort((a, b) => a - b)[Math.floor(nums.length / 2)];
+
 // 59 Convert this array [['a', 1], ['b', 2], ['c', 3]], into { a: 1, b: 2, c: 3 } using array method(s).
+const arr = [
+  ["a", 1],
+  ["b", 2],
+  ["c", 3],
+];
+const obj = Object.fromEntries(arr);
+
 // 60 Flatten and convert all letters to uppercase in one step using flatMap(). Here is input array: [['a', 'b'], ['c', 'd']].
+const input = [
+  ["a", "b"],
+  ["c", "d"],
+];
+const resulti = input.flatMap((arr) =>
+  arr.map((letter) => letter.toUpperCase())
+);
+
 // 61 Count the occurrences of each fruit in this array: ['apple', 'banana', 'apple', 'mango', 'banana', 'banana']
+const arrayFruits = ["apple", "banana", "apple", "mango", "banana", "banana"];
+const fruitCount = arrayFruits.reduce((acc, fruit) => {
+  acc[fruit] = (acc[fruit] || 0) + 1;
+  return acc;
+}, {});
+console.log(fruitCount);
+
 // 62 Extract extract [‘b’, ‘c’, ‘d’] using slice() from this array: ['a', 'b', 'c', 'd', 'e']
+const extractableArray = ["a", "b", "c", "d", "e"];
+const sliced = extractableArray.slice(1, 4);
+console.log(sliced);
+
 // 63 Sort the array [9, 3, 1, 6, 8] in ascending order using toSorted()
+const sortingArray = [9, 3, 1, 6, 8];
+const sortedArray = sortingArray.toSorted();
+console.log(sortedArray);
+
 // 64 Reverse [1, 2, 3, 4, 5] using toReversed() and compare it with reverse()
+const arrayToReverse = [1, 2, 3, 4, 5];
+const reversedArray = arrayToReverse.toReversed();
+console.log(reversedArray);
+console.log(arrayToReverse.reverse());
+
 // 65 Group the follwing array elements based on age(Adult vs Non-Adult):
 
 const users = [
@@ -289,6 +332,23 @@ const users = [
   { name: "Bob", age: 3 },
   { name: "Charlie", age: 25 },
 ];
+const grouped = users.reduce((acc, user) => {
+  const key = user.age >= 18 ? "Adult" : "Non-Adult";
+  acc[key] = acc[key] || [];
+  acc[key].push(user);
+  return acc;
+}, {});
+console.log(grouped);
 
-// T-067 Find the longest word in this sentence using Array and Array methods: "40 Days of JavaScript by tapaScript is a powerful initiative".
-// T-068 Find common elements between two arrays, [1, 2, 3, 4], [3, 4, 5, 6]
+// 67 Find the longest word in this sentence using Array and Array methods: "40 Days of JavaScript by tapaScript is a powerful initiative".
+const sentence = "40 Days of JavaScript by tapaScript is a powerful initiative";
+const longestWord = sentence
+  .split(" ")
+  .reduce((acc, word) => (word.length > acc.length ? word : acc), "");
+console.log(longestWord);
+
+// 68 Find common elements between two arrays, [1, 2, 3, 4], [3, 4, 5, 6]
+const array0 = [1, 2, 3, 4];
+const array01 = [3, 4, 5, 6];
+const commonElements = array0.filter((value) => array01.includes(value));
+console.log(commonElements);
