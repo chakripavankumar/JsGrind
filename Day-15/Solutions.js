@@ -122,6 +122,13 @@ const employees = [
   { id: 10, name: "Jane", departmentId: 1, salary: 5100 },
 ];
 
+const departments = [
+  { id: 1, name: "HR" },
+  { id: 2, name: "Engineering" },
+  { id: 3, name: "Marketing" },
+  { id: 4, name: "Sales" },
+];
+
 const result = employees.filter((emp) => emp.departmentId === 1);
 
 // 22 Create a new array that combines employee names and department names in the format: "Alice (HR)".
@@ -187,51 +194,101 @@ const hasHighEarningDepartment = Object.values(departmentSalaryCheck).some(
     count === employees.filter((emp) => emp.departmentId === count).length
 );
 
-// - [ ] **T-041**: Assume each employee has a projects array (e.g., { id: 1, name: "Alice", projects: ["Project A", "Project B"] }).
-//       Find the total number of unique projects being handled across all employees.
-// - [ ] **T-042**: For each employee, find their department name and return an array of employee names with their department names.
-// - [ ] **T-043**: Get a list of names of employees earning more than 6000.
-// - [ ] **T-044**: Write a for-of loop to print the names of all employees from the employees array.
-// - [ ] **T-045**: Using a for-of loop, print the names of employees earning more than 5000.
-// - [ ] **T-046**: Modify the for-of loop to destructure each employee object and log their name and salary.
-// - [ ] **T-047**: Write a for-of loop to match employees with their departments and print the results.
-// - [ ] **T-048**: Use Array.prototype.entries() with a for-of loop to print the index and name of each employee.
+// 41 Assume each employee has a projects array (e.g., { id: 1, name: "Alice", projects: ["Project A", "Project B"] }). Find the total number of unique projects being handled across all employees.
+const uniqueProjects = employees
+  .flatMap((emp) => emp.projects)
+  .filter((project, index, self) => self.indexOf(project) === index);
+const totalUniqueProjects = uniqueProjects.length;
 
-// - [ ] **T-049**: Given the array-like object below, access the second element and log it:
+// 42 For each employee, find their department name and return an array of employee names with their department names.
+const employeeDepartments = employees.map((emp) => {
+  const department = departments.find((dept) => dept.id === emp.departmentId);
+  return {
+    name: emp.name,
+    department: department ? department.name : "Unknown",
+  };
+});
 
-//   ```js
-//   const arrayLike = { 0: "First", 1: "Second", length: 2 };
-//   ```
+// 43 Get a list of names of employees earning more than 6000.
+const highEarners = employees
+  .filter((emp) => emp.salary > 6000)
+  .map((emp) => emp.name);
 
-// - [ ] **T-050**: Write a function that takes a variable number of arguments and converts the arguments object into a real array using Array.from.
-// - [ ] **T-051**: Write a snippet to select all div elements on a webpage (using document.querySelectorAll) and convert the resulting NodeList into an array.
-// - [ ] **T-052**: Merge these two arrays into a single array:
+// 44 Write a for-of loop to print the names of all employees from the employees array.
+for (const emp of employees) {
+  // console.log(emp.name);
+}
 
-//   ```js
-//   const arr1 = [1, 2];
-//   const arr2 = [3, 4];
-//   ```
+// 45: Using a for-of loop, print the names of employees earning more than 5000.
+for (const emp of employees) {
+  if (emp.salary > 5000) {
+    // console.log(emp.name);
+  }
+}
 
-// - [ ] **T-053**: Create an array of n duplicate values using Array.from. Input: Create an array with 5 "A" values. Output: ["A", "A", "A", "A", "A"]
-// - [ ] **T-054**: Use Array.from to convert a string like "Hello" into an array of characters.
-// - [ ] **T-055**: For the array, ['apple', 'banana', 'apricot', 'mango', 'blueberry'], group words by their first letter using group().
-// - [ ] **T-057**: From this array [3, 7, 3, 2, 3, 8, 7, 7], find the most repeated number. Hint: Use array method.
-// - [ ] **T-058**: Find the median of [5, 2, 9, 1, 3, 6, 8].
-// - [ ] **T-059**: Convert this array [['a', 1], ['b', 2], ['c', 3]], into { a: 1, b: 2, c: 3 } using array method(s).
-// - [ ] **T-060**: Flatten and convert all letters to uppercase in one step using flatMap(). Here is input array: [['a', 'b'], ['c', 'd']].
-// - [ ] **T-061**: Count the occurrences of each fruit in this array: ['apple', 'banana', 'apple', 'mango', 'banana', 'banana']
-// - [ ] **T-062**: Extract extract [‘b’, ‘c’, ‘d’] using slice() from this array: ['a', 'b', 'c', 'd', 'e']
-// - [ ] **T-063**: Sort the array [9, 3, 1, 6, 8] in ascending order using toSorted()
-// - [ ] **T-064**: Reverse [1, 2, 3, 4, 5] using toReversed() and compare it with reverse()
-// - [ ] **T-065**: Group the follwing array elements based on age(Adult vs Non-Adult):
+// 46 Modify the for-of loop to destructure each employee object and log their name and salary.
+for (const { name, salary } of employees) {
+  //console.log(`Name: ${name}, Salary: ${salary}`);
+}
 
-// ```js
-// const users = [
-//   { name: "Alice", age: 55 },
-//   { name: "Bob", age: 3 },
-//   { name: "Charlie", age: 25 },
-// ];
-// ```
+// 47 Write a for-of loop to match employees with their departments and print the results.
+for (const emp of employees) {
+  const dept = departments.find((dept) => dept.id === emp.departmentId);
+  //   console.log(`Employee: ${emp.name}, Department: ${dept ? dept.name : "Unknown"}`);
+}
 
-// - [ ] **T-066**: Find the longest word in this sentence using Array and Array methods: "40 Days of JavaScript by tapaScript is a powerful initiative".
-// - [ ] **T-067**: Find common elements between two arrays, [1, 2, 3, 4], [3, 4, 5, 6]
+// 48 Use Array.prototype.entries() with a for-of loop to print the index and name of each employee.
+for (const [index, emp] of employees.entries()) {
+  //console.log(`Index: ${index}, Employee: ${emp.name}`);
+}
+
+// 49 Given the array-like object below, access the second element and log it:
+
+const arrayLike = { 0: "First", 1: "Second", length: 2 };
+console.log(arrayLike[1]);
+
+// 50 : Write a function that takes a variable number of arguments and converts the arguments object into a real array using Array.from.
+function convertArgsToArray() {
+  return Array.from(arguments);
+}
+
+// 51: Write a snippet to select all div elements on a webpage (using document.querySelectorAll) and convert the resulting NodeList into an array.
+//const divElements = document.querySelectorAll("div");
+//const divArray = Array.from(divElements);
+
+// 52 : Merge these two arrays into a single array:
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+const mergedArray = arr1.concat(arr2);
+
+// 53 Create an array of n duplicate values using Array.from. Input: Create an array with 5 "A" values. Output: ["A", "A", "A", "A", "A"]
+const n = 5;
+const duplicateArray = Array.from({ length: n }, () => "A");
+
+// 54 Use Array.from to convert a string like "Hello" into an array of characters.
+const charArray = Array.from("Hello");
+
+// 55 For the array, ['apple', 'banana', 'apricot', 'mango', 'blueberry'], group words by their first letter using group().
+const fruits = ["apple", "banana", "apricot", "mango", "blueberry"];
+const groupedByFirstLetter = fruits.group((fruit) => fruit[0]);
+console.log(groupedByFirstLetter);
+
+// 57 From this array [3, 7, 3, 2, 3, 8, 7, 7], find the most repeated number. Hint: Use array method.
+
+// 58 Find the median of [5, 2, 9, 1, 3, 6, 8].
+// 59 Convert this array [['a', 1], ['b', 2], ['c', 3]], into { a: 1, b: 2, c: 3 } using array method(s).
+// 60 Flatten and convert all letters to uppercase in one step using flatMap(). Here is input array: [['a', 'b'], ['c', 'd']].
+// 61 Count the occurrences of each fruit in this array: ['apple', 'banana', 'apple', 'mango', 'banana', 'banana']
+// 62 Extract extract [‘b’, ‘c’, ‘d’] using slice() from this array: ['a', 'b', 'c', 'd', 'e']
+// 63 Sort the array [9, 3, 1, 6, 8] in ascending order using toSorted()
+// 64 Reverse [1, 2, 3, 4, 5] using toReversed() and compare it with reverse()
+// 65 Group the follwing array elements based on age(Adult vs Non-Adult):
+
+const users = [
+  { name: "Alice", age: 55 },
+  { name: "Bob", age: 3 },
+  { name: "Charlie", age: 25 },
+];
+
+// T-067 Find the longest word in this sentence using Array and Array methods: "40 Days of JavaScript by tapaScript is a powerful initiative".
+// T-068 Find common elements between two arrays, [1, 2, 3, 4], [3, 4, 5, 6]
