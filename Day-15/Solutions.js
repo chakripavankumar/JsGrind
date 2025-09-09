@@ -307,23 +307,19 @@ const fruitCount = arrayFruits.reduce((acc, fruit) => {
   acc[fruit] = (acc[fruit] || 0) + 1;
   return acc;
 }, {});
-console.log(fruitCount);
 
 // 62 Extract extract [‘b’, ‘c’, ‘d’] using slice() from this array: ['a', 'b', 'c', 'd', 'e']
 const extractableArray = ["a", "b", "c", "d", "e"];
 const sliced = extractableArray.slice(1, 4);
-console.log(sliced);
 
 // 63 Sort the array [9, 3, 1, 6, 8] in ascending order using toSorted()
 const sortingArray = [9, 3, 1, 6, 8];
 const sortedArray = sortingArray.toSorted();
-console.log(sortedArray);
 
 // 64 Reverse [1, 2, 3, 4, 5] using toReversed() and compare it with reverse()
 const arrayToReverse = [1, 2, 3, 4, 5];
 const reversedArray = arrayToReverse.toReversed();
-console.log(reversedArray);
-console.log(arrayToReverse.reverse());
+const inPlaceReversedArray = [...arrayToReverse].reverse();
 
 // 65 Group the follwing array elements based on age(Adult vs Non-Adult):
 
@@ -332,23 +328,20 @@ const users = [
   { name: "Bob", age: 3 },
   { name: "Charlie", age: 25 },
 ];
-const grouped = users.reduce((acc, user) => {
-  const key = user.age >= 18 ? "Adult" : "Non-Adult";
+const groupedByAge = users.reduce((acc, user) => {
+  const key = user.age >= 18 ? "Aduly" : "non -adult";
   acc[key] = acc[key] || [];
   acc[key].push(user);
   return acc;
 }, {});
-console.log(grouped);
 
 // 67 Find the longest word in this sentence using Array and Array methods: "40 Days of JavaScript by tapaScript is a powerful initiative".
 const sentence = "40 Days of JavaScript by tapaScript is a powerful initiative";
 const longestWord = sentence
   .split(" ")
   .reduce((acc, word) => (word.length > acc.length ? word : acc), "");
-console.log(longestWord);
 
 // 68 Find common elements between two arrays, [1, 2, 3, 4], [3, 4, 5, 6]
-const array0 = [1, 2, 3, 4];
+const array0 = [1, 2, 3, 4, 6];
 const array01 = [3, 4, 5, 6];
 const commonElements = array0.filter((value) => array01.includes(value));
-console.log(commonElements);
